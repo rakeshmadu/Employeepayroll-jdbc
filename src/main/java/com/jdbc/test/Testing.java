@@ -26,14 +26,7 @@ public class Testing {
 		pStatement = new PreparedStatementDB(connection);
 	}
 
-	//@Test
-	public void testUpdateHappy() {
-		statement.read();
-		statement.update();
-		
-		assertEquals(statement.checkUpdate(), true);
-	}
-	
+
 	@Test
 	public void testPreparedUpdateHappy() {
 		statement.read();
