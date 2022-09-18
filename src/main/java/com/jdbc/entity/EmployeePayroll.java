@@ -16,6 +16,22 @@ public class EmployeePayroll {
 	double incomeTax;
 	double netPay;
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
 	public EmployeePayroll(int id, String name, String startDate, String gender, int phone, String address,
 			String department, double salary, double basicPay, double deductions, double taxablePay, double incomeTax,
 			double netPay) {

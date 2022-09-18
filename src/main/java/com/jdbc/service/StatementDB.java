@@ -12,11 +12,12 @@ import com.jdbc.entity.EmployeePayroll;
 public class StatementDB {
 
 	final static String FETCH_DB = "SELECT e.id, e.name, e.start_date, e.gender,"
-			+ "	e.phone, e.address, d.department," + "	p.salary, p. basic_pay, p.deductions,"
-			+ "	p.taxable_pay, p.income_tax, p.net_pay" + "	FROM employee_payroll e" + "	LEFT JOIN department d"
-			+ "	ON e.id = d.employee_id" + "	LEFT JOIN payroll p" + "	ON p.id = e.id";
+			+ "	e.phone, e.address, d.department, p.salary, p. basic_pay, p.deductions,"
+			+ "	p.taxable_pay, p.income_tax, p.net_pay FROM employee_payroll e LEFT JOIN department d"
+			+ "	ON e.id = d.employee_id LEFT JOIN payroll p ON p.id = e.id";
+	final static String UPDATE_DB = "UPDATE payroll SET Salary = 3000000 WHERE name = 'Terissa'";
+	final static String SELECT_UPDATE = "SELECT Salary FROM payroll WHERE name = 'Terissa'";
 	Connection connection;
-	ArrayList<EmployeePayroll> db;
 
 	public StatementDB(Connection connection) {
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class StatementDB {
 
 	public void read() {
 
-		db = EmployeeDB.getEmployeeDB();
+		ArrayList<EmployeePayroll> db = EmployeeDB.getEmployeeDB();
 		Statement statement = null;
 
 		try {
@@ -45,5 +46,50 @@ public class StatementDB {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void update() {
+
+		ArrayList<EmployeePayroll> db = EmployeeDB.getEmployeeDB();
+		Statement statement = null;
+
+		try {
+			statement = connection.createStatement();
+			statement.execute(UPDATE_DB);
+
+			for (EmployeePayroll employeePayroll : db) {
+				if (employeePayroll.getName().equals("Terissa")) {
+					employeePayroll.setSalary(3000000);
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public boolean checkUpdate() {
+		double dbResult = -1;
+		ArrayList<EmployeePayroll> db = EmployeeDB.getEmployeeDB();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(SELECT_UPDATE);
+
+			if (result.next())
+				dbResult = result.getDouble(1);
+
+			for (EmployeePayroll employeePayroll : db) {
+				if (employeePayroll.getName().equals("Terissa")) {
+					if (dbResult == employeePayroll.getSalary())
+						return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

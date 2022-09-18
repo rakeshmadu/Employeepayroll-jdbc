@@ -19,5 +19,6 @@ public class App {
 		
 		StatementDB statement = new StatementDB(connection);
 		statement.read();
+		statement.update();
 	}
 }
