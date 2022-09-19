@@ -48,9 +48,9 @@ public class EmployeePayrollServiceTest
 		
 		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
 		List<EmployeePayrollData> employeePayrollData = employeePayrollService.readEmployeePayrollData(IOService.DB_IO);
-		employeePayrollService.updateEmployeeSalary("Bill", 7000000.00);
+		employeePayrollService.updateEmployeeSalary("harish", 7000000.00);
 		
-		boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Bill");
+		boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("harish");
 		Assert.assertTrue(result);
 		
 	}
@@ -58,7 +58,7 @@ public class EmployeePayrollServiceTest
 	public void givenName_WhenFound_ShouldReturnEmployeeDetails() {
 		
 		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-		String name = "Rosa Diaz";
+		String name = "Rakesh madu";
 		List<EmployeePayrollData> employeePayrollData = employeePayrollService.getEmployeeDetailsBasedOnName(IOService.DB_IO, name);
 		String resultName = employeePayrollData.get(0).employeeName;
 		Assert.assertEquals(name, resultName);
